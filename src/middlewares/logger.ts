@@ -12,8 +12,6 @@ const logEvents = async (fileName: string, message: (string | number)[]) => {
 
 	const FILE_PATH = path.join(DIR, fileName);
 	await appendFile(FILE_PATH, message.join("\t") + "\n");
-
-	console.log(message.join("\t"));
 };
 
 let INDEX = 1;
@@ -28,10 +26,10 @@ const logger: RequestHandler = async (req, res, next) => {
 
 	await logEvents("Requests.log", [
 		INDEX++,
+		format(Date.now()),
 		method,
 		url,
 		statusCode,
-		format(Date.now()),
 	]);
 
 	next();
@@ -45,4 +43,4 @@ const errorLogger = async (err: Error) => {
 	await logEvents("Errors.log", [err.name, err.message, format(Date.now())]);
 };
 
-export { logger, errorLogger };
+export { logger, errorLogger, logEvents };
