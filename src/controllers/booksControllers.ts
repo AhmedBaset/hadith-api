@@ -1,8 +1,14 @@
-import { hadithDB } from "@/mongodb.js";
+import { without_id } from "./../helpers/remove_id.js";
+import { hadithDB } from "../mongodb.js";
 import { RequestHandler } from "express";
 
 export const getAllBooks: RequestHandler = async (_, res) => {
-	const books = await hadithDB.collection("booksMetadata").find({}).toArray();
+	const books = await hadithDB
+		.collection("booksMetadata")
+		.find({})
+		.project({ _id: 0 })
+		.sort({ id: 1 })
+		.toArray();
 
 	if (!books.length) {
 		return res.status(404).json({
@@ -35,5 +41,5 @@ export const getBookById: RequestHandler = async (req, res) => {
 		});
 	}
 
-	res.status(200).json(book);
+	res.status(200).json(without_id(book));
 };

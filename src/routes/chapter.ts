@@ -4,7 +4,7 @@ import {
 	getAllChapters,
 	getBookChapters,
 	getChapterById,
-} from "@/controllers/chapterControllers.js";
+} from "./../controllers/chapterControllers.js";
 
 const router = Router();
 

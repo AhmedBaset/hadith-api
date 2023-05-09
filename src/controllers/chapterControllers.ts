@@ -1,5 +1,7 @@
-import { hadithDB } from "@/mongodb.js";
 import { RequestHandler } from "express";
+
+import { hadithDB } from "../mongodb.js";
+import { without_id } from "./../helpers/remove_id.js";
 
 const getChapterById: RequestHandler = async (req, res) => {
 	const { id: ID } = req.query;
@@ -19,7 +21,7 @@ const getChapterById: RequestHandler = async (req, res) => {
 	});
 
 	if (chapter) {
-		return res.status(200).json(chapter);
+		return res.status(200).json(without_id(chapter));
 	} else {
 		const chaptersCount = await chapters.countDocuments();
 
@@ -44,6 +46,7 @@ const getBookChapters: RequestHandler = async (req, res) => {
 		.collection("chapters")
 		.find({ bookId: id })
 		.project({ _id: 0 })
+		.sort({ id: 1 })
 		.toArray()) as Chapter[];
 
 	if (!chapters) {
@@ -60,6 +63,7 @@ const getAllChapters: RequestHandler = async (_, res) => {
 		.collection("chapters")
 		.find({})
 		.project({ _id: 0 })
+		.sort({ id: 1 })
 		.toArray();
 
 	if (!chapters) {

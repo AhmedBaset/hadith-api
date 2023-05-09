@@ -24,7 +24,7 @@ app.use(logger);
 
 //* Routes
 app.use(chapterRouter);
-app.use(bookRouter)
+app.use(bookRouter);
 
 app.use(notFoundRouter);
 

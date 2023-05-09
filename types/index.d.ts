@@ -1,6 +1,6 @@
 declare type Prettify<T> = {
 	[K in keyof T]: T[K];
-} & {};
+} & object;
 
 declare interface Hadith {
 	id: number;

@@ -1,4 +1,4 @@
-import { getAllBooks, getBookById } from "@/controllers/booksControllers.js";
+import { getAllBooks, getBookById } from "./../controllers/booksControllers.js";
 import { Router } from "express";
 
 const router = Router();
