@@ -1,13 +1,16 @@
 import dotenv from "dotenv";
-dotenv.config();
-
 import express from "express";
 import chalk from "chalk";
-import { chapterRouter } from "./routes/chapter.js";
+
+dotenv.config();
+
+import { client } from "./mongodb.js";
 
 import { errorLogger, logEvents, logger } from "./middlewares/logger.js";
+
 import { notFoundRouter } from "./routes/notFound.js";
-import { client } from "./mongodb.js";
+import { bookRouter } from "./routes/book.js";
+import { chapterRouter } from "./routes/chapter.js";
 
 const app = express();
 
@@ -21,6 +24,7 @@ app.use(logger);
 
 //* Routes
 app.use(chapterRouter);
+app.use(bookRouter)
 
 app.use(notFoundRouter);
 
