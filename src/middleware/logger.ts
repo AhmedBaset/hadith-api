@@ -25,3 +25,13 @@ const logger = async (req: Request, res: Response, next: NextFunction) => {
 	]);
 	INDEX++;
 };
+
+const errorLogger = async (err: Error) => {
+	const { format } = new Intl.DateTimeFormat(undefined, {
+		dateStyle: "short",
+	});
+
+	await logEvents("Errors.log", [err.name, err.message, format(Date.now())]);
+};
+
+export { logger, errorLogger };
