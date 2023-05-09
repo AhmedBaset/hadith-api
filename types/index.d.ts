@@ -67,3 +67,7 @@ interface ScrapedBook {
 		chapters: string[];
 	};
 }
+
+interface AError {
+	message: string;
+}
