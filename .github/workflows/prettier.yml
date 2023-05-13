@@ -15,11 +15,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-
 
       - name: Run Prettier
         run: npx prettier --write .
@@ -31,10 +26,8 @@ jobs:
       - name: Push changes
         if: steps.git-check.outputs.modified == 'true'
         run: |
-          git config --global user.name 'Ahmed Abdeblbaset'
+          git config --global user.name 'A7med3bdulBaset'
           git config --global user.email 'A7med3bdulBaset@users.noreply.github.com'
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-          git remote set-url --push origin https://A7med3bdulBaset:$GITHUB_TOKEN@github.com/A7med3bdulBaset/hadith-api.git
-          git checkout -b formatting-${{ github.event.pull_request.number }}
-          git commit -am "Automated changes"
-          git push origin formatting-${{ github.event.pull_request.number }}
+          git commit -am "[BOT]: Formatting"
+          git push
