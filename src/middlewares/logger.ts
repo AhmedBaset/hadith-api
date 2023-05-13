@@ -2,7 +2,7 @@ import path from "node:path";
 import url from "node:url";
 import { existsSync } from "fs";
 import { mkdir, appendFile } from "fs/promises";
-import { RequestHandler } from "express";
+import { ErrorRequestHandler, RequestHandler } from "express";
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
@@ -16,31 +16,19 @@ const logEvents = async (fileName: string, message: (string | number)[]) => {
 
 let INDEX = 1;
 const logger: RequestHandler = async (req, res, next) => {
-	const { format } = new Intl.DateTimeFormat("en-US", {
-		dateStyle: "short",
-		timeStyle: "short",
-	});
+	const { method, url, hostname } = req;
+	const date = new Date().toISOString();
 
-	const { method, url } = req;
-	const { statusCode } = res;
-
-	await logEvents("Requests.log", [
-		INDEX++,
-		format(Date.now()),
-		method,
-		url,
-		statusCode,
-	]);
+	await logEvents("Requests.log", [INDEX++, date, method, hostname, url]);
 
 	next();
 };
 
-const errorLogger = async (err: Error) => {
-	const { format } = new Intl.DateTimeFormat("en-US", {
-		dateStyle: "short",
-	});
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const errorLogger: ErrorRequestHandler = async (err, _req, _res, _next) => {
+	const date = new Date().toISOString();
 
-	await logEvents("Errors.log", [err.name, err.message, format(Date.now())]);
+	await logEvents("Errors.log", [date, err.name, err.message]);
 };
 
 export { logger, errorLogger, logEvents };
