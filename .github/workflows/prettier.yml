@@ -28,7 +28,9 @@ jobs:
       - name: Push changes
         if: steps.git-check.outputs.modified == 'true'
         run: |
-          git remote set-url origin
+          git config --global user.name "Mritunjay Sharma"
+          git config --global user.email "A7med3bdulBaset@@users.noreply.github.com"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git add .
           git commit -m "[Bot]: Format code with Prettier"
           git push
