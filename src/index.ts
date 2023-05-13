@@ -31,7 +31,7 @@ app.use("/docs", docsRoute);
 
 app.use(notFoundRouter);
 
-app.use(errorLogger);
+				app.use(errorLogger);
 
 // Start the server
 const PORT = process.env.PORT || 3500;
