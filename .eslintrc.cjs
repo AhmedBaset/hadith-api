@@ -13,8 +13,7 @@ module.exports = {
 	},
 	plugins: ["@typescript-eslint"],
 	rules: {
-		indent: ["error", "tab"],
-		quotes: ["error", "double"],
-		semi: ["error", "always"],
+		quotes: ["warn", "double"],
+		semi: ["warn", "always"],
 	},
 };
