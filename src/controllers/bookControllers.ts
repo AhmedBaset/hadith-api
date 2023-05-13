@@ -1,4 +1,4 @@
-import { without_id } from "./../helpers/remove_id.js";
+import { without_id } from "../helpers/remove_id.js";
 import { hadithDB } from "../mongodb.js";
 import { RequestHandler } from "express";
 
@@ -20,13 +20,13 @@ export const getAllBooks: RequestHandler = async (_, res) => {
 };
 
 export const getBookById: RequestHandler = async (req, res) => {
-	const { id: ID } = req.query;
+	const { id: ID } = req.params;
 	const id = parseInt(ID as string);
 
 	if (!id) {
 		return res.status(409).json({
 			message:
-				"The id query is required and must be number. (e.g. /book?id=1 for Sahih Bukhari)",
+				"The id query is required and must be number. (e.g. /book/1 for Sahih Bukhari)",
 		});
 	}
 
