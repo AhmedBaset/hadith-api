@@ -22,7 +22,7 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        run: npm Install
+        run: npm install
 
       - name: Run Prettier
         run: npx prettier --write "src/**/*.ts"
