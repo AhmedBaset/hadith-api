@@ -31,6 +31,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          git checkout -b prettier-$(date +%s)
           git add .
           git commit -m "Auto-format code with Prettier" || echo "No changes to commit"
           git push
