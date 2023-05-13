@@ -34,4 +34,4 @@ jobs:
           git checkout -b prettier-$(date +%s)
           git add .
           git commit -m "Auto-format code with Prettier" || echo "No changes to commit"
-          git push
+          git push origin prettier-$(date +%s)
