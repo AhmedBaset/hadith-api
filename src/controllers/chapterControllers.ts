@@ -32,13 +32,13 @@ const getChapterById: RequestHandler = async (req, res) => {
 };
 
 const getBookChapters: RequestHandler = async (req, res) => {
-	const { id: ID } = req.query;
+	const { id: ID } = req.params;
 	const id = parseInt(ID as string);
 
 	if (!id) {
 		return res.status(409).json({
 			message:
-				"The book id query is required and must be number. (e.g. /bookChapters?id=1 for Sahih Bukhari)",
+				"The book id query is required and must be number. (e.g. /book/chapters/1 for Sahih Bukhari chapters)",
 		});
 	}
 
@@ -49,7 +49,7 @@ const getBookChapters: RequestHandler = async (req, res) => {
 		.sort({ id: 1 })
 		.toArray()) as Chapter[];
 
-	if (!chapters) {
+	if (!chapters.length) {
 		return res.status(404).json({
 			message: "There is no chapters in the database.",
 		});

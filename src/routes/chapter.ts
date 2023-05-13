@@ -10,6 +10,6 @@ const router = Router();
 
 router.get("/chapter", getChapterById);
 router.get("/chapters", getAllChapters);
-router.get("/bookChapters", getBookChapters);
+router.get("/book/:id/chapters", getBookChapters);
 
 export { router as chapterRouter };
