@@ -38,7 +38,19 @@ npm install
 yarn install
 ```
 
-3. Compile the TypeScript code.
+3. Setup the `.env` file as the `.env.example` file.
+
+```env
+# The port that the server will run on.
+PORT=3500 # Change it if conflict with another port.
+
+# The MongoDB connection string. 
+MONGODB_URI=mongodb+srv://<USERNAME>:<PASSWORD>@<DATABASE>.mongodb.net/?retryWrites=true&w=majority
+```
+
+To get the MONGODB_URI, You need to store the database [from the `hadith-json` repository](https://github.com/a7med3bdulbaset/hadith-json) in MongoDB Atlas. Then, get the connection string from the Atlas dashboard.
+
+4. Compile the TypeScript code.
 
 ```bash
 # NPM
@@ -47,7 +59,7 @@ npm run build
 yarn build
 ```
 
-4. Start the server.
+5. Start the server.
 
 ```bash
 # NPM
@@ -56,7 +68,9 @@ npm start
 yarn start
 ```
 
-5. Dev server.
+This will run the server on `http://localhost:3500`. You can change the port in the `.env` file.
+
+6. Dev server.
 
 ```bash
 # NPM
