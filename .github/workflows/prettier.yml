@@ -10,29 +10,29 @@ on:
 
 jobs:
   prettier:
+    # Check if the PR is not from a fork
+    if: github.event.pull_request.head.repo.full_name == github.repository
+
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v2
         with:
-          node-version: 18
-
-      - name: Install dependencies
-        run: npm install
+          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Run Prettier
         run: npx prettier --write .
 
-      - name: Commit changes
+      - name: Check for modified files
+        id: git-check
+        run: echo "modified=$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)" >> $GITHUB_OUTPUT
+
+      - name: Push changes
+        if: steps.git-check.outputs.modified == 'true'
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git checkout -b prettier-$(date +%s)
-          git add .
-          git commit -m "Auto-format code with Prettier" || echo "No changes to commit"
-          git push origin prettier-$(date +%s)
-      
+          git config --global user.name 'Ahmed Abdeblbaset'
+          git config --global user.email 'A7med3bdulBaset@users.noreply.github.com'
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git checkout -b formatting-${{ github.event.pull_request.number }}
+          git commit -am "Automated changes"
+          git push origin formatting-${{ github.event.pull_request.number }}
