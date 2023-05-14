@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         env: 
           Name: A7med3bdulBaset
 
@@ -32,7 +32,7 @@ jobs:
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git commit -a -m "Add changes"
+          git commit -a -m "[Bot]: Auto Formatting"
       
       - name: Push changes
         uses: ad-m/github-push-action@master
