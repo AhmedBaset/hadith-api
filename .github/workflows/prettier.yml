@@ -17,8 +17,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-        env: 
-          Name: A7med3bdulBaset
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
 
       - name: Run Prettier
         run: npx prettier --write .
